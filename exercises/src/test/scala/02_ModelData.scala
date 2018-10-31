@@ -50,6 +50,24 @@ object ModelData extends SimpleTestSuite {
    * ADD YOUR CODE HERE INSIDE THE OBJECT
    */
 
+  sealed trait Player
+
+  sealed trait Suit
+  case object Club extends Suit
+  case object Gold extends Suit
+  case object Sword extends Suit
+  case object Cup extends Suit
+
+  sealed trait Value
+  case object Knight extends Value
+
+  case class Card(s:Suit, v:Value)
+
+  case class Table(d:Deck)
+  case class Player(p:Person, d:Deck)
+  case class Deck()
+
+
   test("represent initial match state") {
     ignore("build the first player w/ 2 of Golds, 5 of Swords and 7 of Clubs")
     ignore("build the second player w/ 1 of Cups, 2 of Clubs and 9 of Golds")
