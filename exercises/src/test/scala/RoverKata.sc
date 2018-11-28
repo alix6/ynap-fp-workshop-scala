@@ -26,16 +26,20 @@ object RoverKata extends SimpleTestSuite {
   case class Rover(P: Position, direction: Direction)
 
   sealed trait Commands
-  case class Forward() extends Commands
-  case class Backward() extends Commands
-  case class Right() extends Commands
-  case class Left() extends Commands
+  case object Forward extends Commands
+  case object Backward extends Commands
+  case object Right extends Commands
+  case object Left extends Commands
+
+  def moveBackward(rover: Rover) : Rover = {
+
+  }
 
   def move(rover: Rover, commands: Commands): Rover = {
     commands match{
-      case Forward() => moveForward(rover)
-      case Backward() => moveBackward(rover)
-      case Left() =>
+      case Forward => moveForward(rover)
+      case Backward => moveBackward(rover)
+      case Left =>
     }
   }
   def moveForward(rover : Rover): Rover = {

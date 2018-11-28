@@ -17,11 +17,18 @@ object MaybeTests extends SimpleTestSuite {
    * TODO: remove all nulls
    */
 
+
+
+
   case class Qty(value: Int)
 
-  def toQty(value: String): Qty =
-    if (value.matches("^[0-9]+$")) Qty(value.toInt)
-    else null
+  sealed trait QtyWrap
+  case class Any(value: Qty) extends QtyWrap
+  case class None() extends QtyWrap
+
+  def toQty(value: String): QtyWrap =
+    if (value.matches("^[0-9]+$")) Any(Qty(value.toInt))
+    else None()
 
   test("valid qty") {
     assertEquals(toQty("100"), Qty(100))
