@@ -24,12 +24,16 @@ object FunctionsTests extends SimpleTestSuite {
 
   val reciprocal: Int => Double = in => 1.0 / in
 
-  val reciprocalString: String => String = _ => {
-    ???
-  }
+  val reciprocalString: String => String =
+    parseString andThen reciprocal andThen asString
 
+//  def compose [A, B, C](g:A => B, f:B => C):A => C =
+//    in => g(f(in))
+
+  def andThen [A, B, C](f:A => B, g:B => C):A => C =
+     in => g(f(in))
   test("from string to string throught reciprocal") {
-    ignore("use existing function to compute a reciprocal in string")
+//    ignore("use existing function to compute a reciprocal in string")
     assertEquals(reciprocalString("42"), "0.023809523809523808")
   }
 }

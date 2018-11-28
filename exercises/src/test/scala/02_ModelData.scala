@@ -50,22 +50,22 @@ object ModelData extends SimpleTestSuite {
    * ADD YOUR CODE HERE INSIDE THE OBJECT
    */
 
-  sealed trait Player
+//  sealed trait Player
 
-  sealed trait Suit
-  case object Club extends Suit
-  case object Gold extends Suit
-  case object Sword extends Suit
-  case object Cup extends Suit
-
-  sealed trait Value
-  case object Knight extends Value
-
-  case class Card(s:Suit, v:Value)
-
-  case class Table(d:Deck)
-  case class Player(p:Person, d:Deck)
-  case class Deck()
+//  sealed trait Suit
+//  case object Club extends Suit
+//  case object Gold extends Suit
+//  case object Sword extends Suit
+//  case object Cup extends Suit
+//
+//  sealed trait Value
+//  case object Knight extends Value
+//
+//  case class Card(s:Suit, v:Value)
+//
+//  case class Table(d:Deck)
+//  case class Player(p:Person, d:Deck)
+//  case class Deck()
 
 
   test("represent initial match state") {
