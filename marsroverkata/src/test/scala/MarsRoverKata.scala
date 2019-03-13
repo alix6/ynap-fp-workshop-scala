@@ -2,6 +2,8 @@ package marsroverkata
 
 import minitest._
 
+import scala.util.{Failure, Success, Try}
+
 object MarsRoverKataTests extends SimpleTestSuite {
 
   case class Position(x: Int, y: Int)
@@ -29,17 +31,20 @@ object MarsRoverKataTests extends SimpleTestSuite {
   case object S extends Direction
 
   def program(input: String, planet: Planet): Planet =
-    parse(input)
-      .foldLeft(planet)(execute)
+      parse(input)
+      .foldLeft(planet)((p, tryc) => tryc.map(c => execute(p, c)).getOrElse(p))
 
-  def parse(value: String): List[Command] =
+
+
+  def parse(value: String): List[Try[Command]] =
     value.toLowerCase.map(parse).toList
 
-  def parse(c: Char): Command = c match {
-    case 'f' => F
-    case 'b' => B
-    case 'l' => L
-    case 'r' => R
+  def parse(c: Char): Try[Command] = c match {
+    case 'f' => Success(F)
+    case 'b' => Success(B)
+    case 'l' => Success(L)
+    case 'r' => Success(R)
+    case _ => Failure(new Exception("Exception"))
   }
 
   def execute(planet: Planet, cmd: Command): Planet = cmd match {

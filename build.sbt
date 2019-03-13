@@ -6,7 +6,7 @@ addCommandAlias("to", "testOnly")
 addCommandAlias("ps", "projects")
 addCommandAlias("p", "project")
 
-lazy val global = project
+lazy val global = project 
   .in(file("."))
   .settings(settings)
   .aggregate(exercises, marsroverkata)
@@ -58,7 +58,7 @@ lazy val scalacSettings = Seq(
   "-Ywarn-infer-any",
   "-Ywarn-nullary-override",
   "-Ywarn-nullary-unit",
-  "-Ywarn-unused:_,-imports",
+//  "-Ywarn-unused:_,-imports",
   "-Xsource:2.13",
   "-Xlint:_,-type-parameter-shadow",
   "-Xfuture",

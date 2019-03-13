@@ -38,7 +38,8 @@ object MapTests extends SimpleTestSuite {
       else throw NotAnIntException(s)
 
   val toiTry: String => Try[Int] =
-    _ => ???
+    str => if (str.matches("^[0-9]+$")) Success(str.toInt)
+    else Failure(NotAnIntException(str))
 
   val dec: Int => Int =
     n => n - 1
@@ -47,27 +48,29 @@ object MapTests extends SimpleTestSuite {
     n => n.toString
 
   test("chain one function") {
-    val program: String => Int =
-      toi.andThen(dec)
-
+    val program: String => Try[Int] =
+      s =>
+        toiTry(s).map(dec)
     val result = program("10")
-    assertEquals(result, 9)
+    assertEquals(result, Success(9))
   }
 
   test("chain two functions") {
-    val program: String => String =
-      toi.andThen(dec).andThen(tos)
+    val program: String => Try[String] =
+      s =>
+      toiTry(s).map(dec).map(tos)
 
     val result = program("10")
-    assertEquals(result, "9")
+    assertEquals(result, Success("9"))
   }
 
   test("fail") {
-    val program: String => String =
-      toi.andThen(dec).andThen(tos)
-
-    intercept[NotAnIntException] {
-      program("foo"); ()
-    }
+    val program: String => Try[String] =
+      s =>
+        toiTry(s).map(dec).map(tos)
+  //equivalente
+  // toiTry(s).map(dec.andThen(tos))
+    val result = program("foo")
+    assertEquals(result, Failure(NotAnIntException("foo")))
   }
 }
